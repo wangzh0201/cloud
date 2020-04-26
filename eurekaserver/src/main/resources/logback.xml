@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration debug="false" scan="true">
+    <!-- root日志级别 -->
+    <property name="LOG_ROOT_LEVEL" value="INFO" />
+    <!-- 日志格式 -->
+    <property name="LOG_PATTERN"
+              value="%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level [%thread] [%file : %line] - %msg%n" />
+    <!-- 日志文件编码 -->
+    <property name="LOG_CHARSET" value="utf-8" />
+    <!-- 日志文件路径-->
+    <property name="LOG_DIR" value="/var/log/cloud" />
+
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_DIR}/eureka.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- 设置滚动策略 -->
+            <fileNamePattern>${LOG_DIR}/eureka-%d{yyyy-MM-dd}_%i.log</fileNamePattern>
+            <!-- keep 30 days' worth of history capped at 3GB total size -->
+            <maxHistory>30</maxHistory>
+            <timeBasedFileNamingAndTriggeringPolicy
+                    class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <!-- 日志文件的最大大小 -->
+                <maxFileSize>10MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+            <totalSizeCap>3GB</totalSizeCap>
+        </rollingPolicy>
+        <!-- 格式日志文件内容-->
+        <encoder>
+            <pattern>${LOG_PATTERN}</pattern>
+            <charset class="java.nio.charset.Charset">${LOG_CHARSET}</charset>
+        </encoder>
+    </appender>
+
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>${LOG_PATTERN}</pattern>
+        </encoder>
+    </appender>
+
+    <root level="${LOG_ROOT_LEVEL}">
+        <appender-ref ref="FILE" />
+        <appender-ref ref="CONSOLE" />
+    </root>
+</configuration>
