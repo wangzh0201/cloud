@@ -5,6 +5,8 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
@@ -81,11 +83,12 @@ public class User implements Serializable {
 
     @Override
     public String toString() {
-        return "id:" + id
+        /*return "id:" + id
                 + ",account:" + account
                 + ",password:" + password
                 + ",createTime:" + createTime
                 + ",modifyTime:" + modifyTime
-                + ",deleted:" + deleted;
+                + ",deleted:" + deleted;*/
+        return ToStringBuilder.reflectionToString(this, ToStringStyle.JSON_STYLE);
     }
 }

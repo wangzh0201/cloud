@@ -23,12 +23,13 @@ public class TestController {
     }
 
     @PostMapping("/user/login")
-    public int login(@RequestBody User user) {
+    public String login(@RequestBody User user) {
         User result = userService.getUserByAccount(user);
+
         if (result != null && StringUtils.equals(result.getPassword(), user.getPassword())) {
-            return 1;
+            return result.toString();
         }
-        return 0;
+        return "fail";
     }
 
     @PostMapping("/user/add")
